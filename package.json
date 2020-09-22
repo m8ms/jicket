@@ -1,0 +1,41 @@
+{
+  "name": "jicket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "format": "prettier --write src/**/*",
+    "release": "standard-version && git push --follow-tags origin master && npm publish"
+  },
+  "bin": {
+    "jic": "bin/cli.js"
+  },
+  "keywords": [
+    "jira",
+    "cli",
+    "branch",
+    "colaboration"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm start format"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "date-fns": "^2.16.1",
+    "inquirer": "^7.3.3",
+    "inquirer-search-list": "^1.2.6",
+    "jira-client": "^6.21.0",
+    "minimist": "^1.2.5",
+    "simple-git": "^2.20.1",
+    "string-to-color": "^2.2.2"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "prettier": "^2.1.2"
+  }
+}
