@@ -19,7 +19,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm start format"
+      "pre-commit": "npm run format"
     }
   },
   "author": "",
