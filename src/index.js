@@ -1,13 +1,13 @@
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
-const JiraApi = require("jira-client");
 const format = require("date-fns/format");
 const chalk = require("chalk");
 const stc = require("string-to-color");
 const parseArgs = require("minimist");
 const runPrompt = require("./runPrompt");
 const createConfig = require("./createConfig");
+const fetchAllIssues = require("./fetchAllIssues");
 
 const args = parseArgs(process.argv.slice(2));
 
@@ -36,19 +36,10 @@ try {
   }
 }
 
-async function run({ host, username, token, excludedStatuses }) {
-  const jira = new JiraApi({
-    protocol: "https",
-    host,
-    username,
-    password: token,
-    apiVersion: "2",
-    strictSSL: true,
-  });
+async function run({ excludedStatuses, ...config }) {
+  const allResults = await fetchAllIssues(config);
 
-  const data = await jira.getUsersIssues(username);
-
-  const issues = data.issues.filter(
+  const issues = allResults.filter(
     ({ fields }) => !excludedStatuses.includes(fields.status.name)
   );
 
